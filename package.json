@@ -5,7 +5,18 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "dev": "ts-node-dev --exit-child src/server.ts"
+    "dev": "ts-node-dev --exit-child src/server.ts",
+    "docker:up": "docker-compose up -d",
+    "docker:up:logs": "yarn docker:up && docker-compose logs -f",
+    "docker:down": "docker-compose down",
+    "docker:destroy": "docker-compose down --volumes --remove-orphans",
+    "deploy:local": "serverless deploy --stage local",
+    "deploy:dev": "serverless deploy --stage dev",
+    "deploy": "serverless deploy",
+    "new-migrate": "prisma migrate dev --name",
+    "migrate": "prisma migrate dev",
+    "migrate:dev": "prisma db push",
+    "migrate:prod": "prisma db push"
   },
   "keywords": [],
   "author": "",
