@@ -12,13 +12,11 @@ app.use(cors());
 
 const prisma = new PrismaClient();
 
-app.get("/games", async (request, response) => {
-
+app.get("/", async (request, response) => {
   return response.json({
-    message: "Hello World"
+    message: "Hello World",
   });
 });
-
 
 app.get("/games", async (request, response) => {
   const games = await prisma.game.findMany({
