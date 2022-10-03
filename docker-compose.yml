@@ -10,23 +10,24 @@ services:
     volumes:
       - ./:/app
     environment:
-      MYSQL_HOST: mysql
-      MYSQL_USER: ${DB_USER}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
-      MYSQL_DB: ${DB_DATABASE}
+      DATABASE_URL: ${DATABASE_URL}
+    # network_mode: host
+    env_file:
+      - .env
+    depends_on:
+      - db
 
   db:
     image: mysql:5.7
-    container_name: "nlw-esports-db"
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     volumes:
       - nlw-mysql-data:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       MYSQL_DATABASE: ${DB_DATABASE}
-      # MYSQL_USER: ${DB_USER}
-      # MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
     env_file:
       - .env
     ports:
